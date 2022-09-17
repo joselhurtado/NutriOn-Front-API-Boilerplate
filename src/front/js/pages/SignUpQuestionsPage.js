@@ -103,7 +103,7 @@ export const SignUpQuestionsPage = () => {
                 <div className="BMIheight">
                   <input className="feet" placeholder="Feet"></input>
                   <input className="inch" placeholder="Inches"></input>
-                  <input className="weight" placeholder="Weight"></input>
+                  <input className="weightBtn" placeholder="Weight"></input>
                   <input className="age" placeholder="Age"></input>
                 </div>
                 <div className="BMIinfo">
