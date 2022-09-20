@@ -11,7 +11,7 @@ const BMICalculator = () => {
     setBmi(value);
 
     if (value < 18.5) {
-      setInfo(<div className="alert alert-success m-2">Under Weight</div>);
+      setInfo(<div className="alert alert-success m-2">Under Weight</div>); //BMI bottom info Alert
     } else if (value > 18.5 && value <= 24.9) {
       setInfo(<div className="alert alert-info m-2">Healthy</div>);
     } else if (value > 24.9 && value < 30) {
