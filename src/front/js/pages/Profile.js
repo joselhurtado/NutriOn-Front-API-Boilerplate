@@ -6,12 +6,12 @@ import "../../styles/home.css";
 export default function Profile() {
   return (
     <div className="container">
-      <div className="container-flex">
-        <div className="row">
-          <div className="col-sm card text-center" >
+      <div className="container">
+        <div className="row information-container">
+          <div className="col-sm card text-center profile-pic-container" >
               <img
                 src="https://images.theconversation.com/files/478225/original/file-20220809-24-orxjcu.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                className="card-img-top"
+                className="card-img-top text-center profile-pic"
                 alt="..."
               />
                <div className="card-body">
@@ -210,7 +210,7 @@ export default function Profile() {
 
       { /* Slider Meals Section */}
 
-      <div className="col-6 favoriteCard">
+      <div className="col favoriteCard">
         <div className="card">
           <div className="card-body d-flex justify-content-center align-items-center flex-column favoriteMeal">
             <h1 className="card-title text-center text-dark">

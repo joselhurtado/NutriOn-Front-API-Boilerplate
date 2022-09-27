@@ -40,6 +40,7 @@
     color: white;
     font-size: 118%;
     font-family: 'Poppins', sans-serif;
+    width: 560px;
 }
 .usernameInput{
     color: white;
@@ -64,7 +65,7 @@
 }
 
 .profilePicture{
-    width: 18rem;
+    width: 200px;
     height: 90%;
     background-color: #004C52;
     margin-left: 22%;
@@ -109,4 +110,22 @@
 .favoriteMeal{
     margin-top: -1rem;
     margin-bottom: 1rem;
+}
+.profile-pic-container{
+    border-radius: 60%;
+    height:auto;
+    width: 250px;
+    margin: 49px;
+    padding-top: 45px;
+    margin-right: 206px;
+    margin-top: -5px;
+}
+.profile-pic{
+    border-radius: 50%;
+    height:auto;
+    width:200px;
+    margin-left: 110px;
+}
+.information-container{
+    padding-top: 116px;
 }
