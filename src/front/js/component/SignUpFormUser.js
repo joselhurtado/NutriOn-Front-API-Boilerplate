@@ -1,13 +1,194 @@
-import React from 'react';
-import "../../styles/SignUp.css";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "/src/front/js/store/appContext.js";
 
-export const SignUpFormUser= () => {
-    return (
-        <div className="form-user">
-            <input className="form-control" type="text" placeholder="Enter your First Name" required></input>
-            <input className="form-control" type="email" placeholder="Enter your Last Name" required></input>
+import axios from "axios";
+import "../../styles/SignUp.css";
+import { Link } from "react-router-dom";
+
+export function SignUpFormUser() {
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    emailsignup: "",
+    userName: "",
+    passWord: "",
+    gender: "",
+    loseWeight: "",
+    gainWeight: "",
+    maintainWeight: "",
+    male: "",
+    female: "",
+    other: "",
+  });
+
+  useEffect(() => {
+    console.log("store", store);
+  }, []);
+
+  const { store, actions } = useContext(Context); //Const to call store data from Flux (Actions is not used yet)
+
+  function submitForm(e) {
+    e.preventDefault();
+    // console.log("form data", data);
+    console.log("user submitted");
+    console.log("store data", store.usersignupstats);
+
+    actions.addsignupData(data);
+
+    console.log("usersing", store.usersignupstats);
+    setStore: (data) =>
+      setState({
+        store: (store.usersignupstats, ["@13123", "#123123"]),
+        actions: { ...state.actions },
+      });
+  }
+
+  function handle(e) {
+    const newData = { ...data };
+    newData[e.target.id] = e.target.value;
+    setData(newData);
+    console.log(newData);
+  }
+  return (
+    <form onSubmit={(e) => submitForm(e)}>
+      <div>
+        <div>
+          <div className="form-user">
+            <input
+              onChange={(e) => handle(e)}
+              id="firstName"
+              value={data.firstName}
+              className="form-control"
+              type="text"
+              placeholder="First Name"
+              required
+            ></input>
+            <input
+              onChange={(e) => handle(e)}
+              id="lastName"
+              value={data.lastName}
+              className="form-control"
+              type="text"
+              placeholder="Last Name"
+              required
+            ></input>
+          </div>
+          <div className="Userinfo">
+            <input
+              onChange={(e) => handle(e)}
+              id="emailsignup"
+              value={data.email}
+              className="form-control"
+              type="email"
+              placeholder="Enter your email"
+              required
+            ></input>
+          </div>
+          <div className="UserinfoPassword">
+            <input
+              onChange={(e) => handle(e)}
+              id="userName"
+              value={data.userName}
+              className="form-control"
+              type="text"
+              placeholder="Enter username"
+              required
+            ></input>
+            <input
+              onChange={(e) => handle(e)}
+              id="passWord"
+              value={data.passWord}
+              className="form-control"
+              type="text"
+              placeholder="Enter password"
+              required
+            ></input>
+          </div>
         </div>
-        );
+        <div className="weightgoal">
+          <p className="weight-title">What is your weight goal?</p>
+        </div>
+        <div className="weightgoalbuttons">
+          <div class="3btnweight">
+            <button
+              onClick={(e) => {
+                setData({ ...data, loseWeight: "lose weight" });
+              }}
+              value={"lose Weight"}
+              class="btn btn-orange"
+              type="button"
+              id="weightbtn"
+            >
+              Lose Weight
+            </button>
+            <button
+              onClick={(e) => {
+                setData({ ...data, gainWeight: "gain weight" });
+              }}
+              class="btn btn-orange"
+              type="button"
+              id="weightbtn"
+            >
+              Gain Weight
+            </button>
+            <button
+              onClick={(e) => {
+                setData({ ...data, maintainWeight: "Maintain Weight" });
+              }}
+              class="btn btn-orange"
+              type="button"
+              id="weightbtn"
+            >
+              Maintain Weight
+            </button>
+            <div className="genderP">
+              <p className="gender-title">What is your gender?</p>
+            </div>
+            <div className="Genderdiv">
+              <button
+                onClick={(e) => {
+                  setData({ ...data, male: "Male" });
+                }}
+                class="btn btn-orange"
+                type="button"
+                id="genderbtn"
+              >
+                Male
+              </button>
+              <button
+                onClick={(e) => {
+                  setData({ ...data, female: "Female" });
+                }}
+                class="btn btn-orange"
+                type="button"
+                id="genderbtn"
+              >
+                Female
+              </button>
+              <button
+                onClick={(e) => {
+                  setData({ ...data, other: "Other" });
+                }}
+                class="btn btn-orange"
+                type="button"
+                id="genderbtn"
+              >
+                Other
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="SignupFormbtn">
+          <button className="btn btn-orange" id="Questionbuttons1">
+            Go Back
+          </button>
+          <button className="btn btn-orange" type="submit" id="Questionbuttons">
+            Continue
+          </button>
+        </div>
+      </div>
+    </form>
+  );
 }
 
-export default SignUpFormUser
+export default SignUpFormUser;

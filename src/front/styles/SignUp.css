@@ -235,3 +235,11 @@
 .BMIweight{
     text-align: center;
 }
+#weightbtn{
+    margin: 5px;
+    text-align: center;
+}
+#genderbtn{
+    margin: 5px;
+    text-align: center;
+}

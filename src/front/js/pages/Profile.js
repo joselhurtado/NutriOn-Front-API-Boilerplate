@@ -1,32 +1,47 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+
 import "../../styles/dashboard.css";
 import "../../styles/home.css";
 
+import { Context } from "/src/front/js/store/appContext.js";
+export default function Profile({
+  firstName = "",
+  LastName = "",
+  Email = "",
+  UserName = "",
+}) {
+  const { store, actions } = useContext(Context); //Const to call store data from Flux (Actions is not used yet)
 
-export default function Profile() {
+  useEffect(
+    () => {
+      console.log(store.usersignupstats);
+    },
+    [] // In Here we call out again to keep stored the data on re-load the page
+  );
   return (
     <div className="container">
       <div className="container-flex">
         <div className="row">
-          <div className="col-sm card text-center" >
-              <img
-                src="https://images.theconversation.com/files/478225/original/file-20220809-24-orxjcu.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                className="card-img-top"
-                alt="..."
-              />
-               <div className="card-body">
-                <h1 className="card-text">
-                  BEYONCE
-                </h1>
-                <h4>
-                  Nutrition Goals
-                </h4>
+          <div className="col-sm card text-center">
+            <img
+              src="https://images.theconversation.com/files/478225/original/file-20220809-24-orxjcu.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+              className="card-img-top"
+              alt="..."
+            />
+            <div className="card-body">
+              <h1 className="card-text">BEYONCE</h1>
+              <h4>Nutrition Goals</h4>
             </div>
           </div>
-          <div
-            className="col-sm">
+          <div className="col-sm">
             <h1 className="card-title text-center mt-1">My Information</h1>
-            <div><label for="exampleFormControlInput1" className="form-label fullName" >Full Name</label>
+            <div>
+              <label
+                for="exampleFormControlInput1"
+                className="form-label fullName"
+              >
+                {(firstName, LastName)}
+              </label>
               <input
                 type="text"
                 className="form-control fullName"
@@ -39,7 +54,7 @@ export default function Profile() {
                 for="exampleFormControlInput2"
                 className="form-label usernameInput"
               >
-                Username
+                {UserName}
               </label>
               <input
                 type="text"
@@ -53,7 +68,7 @@ export default function Profile() {
                 for="exampleFormControlInput3"
                 className="form-label emailAddressInput"
               >
-                Email Address
+                {Email}
               </label>
               <input
                 type="email"
@@ -65,14 +80,15 @@ export default function Profile() {
           </div>
         </div>
 
-      { /* Diet and Calculator Section */}
-        
-        <div
-          className="row bmiDiet">
+        {/* Diet and Calculator Section */}
+
+        <div className="row bmiDiet">
           <div className="col-sm">
             <div className="card p personalDietCircle">
               <div className="card-body innerCircle">
-                <h1 className="card-title text-center dietCircleTitle">Vegetarian Diet</h1>
+                <h1 className="card-title text-center dietCircleTitle">
+                  Vegetarian Diet
+                </h1>
                 <p className="card-text text-center">My Weight Gain Journey</p>
                 <div className="card-text-diet">
                   <ul className="list-group list-group-flush text-center">
@@ -91,9 +107,7 @@ export default function Profile() {
                 Calorie Calculator
               </h1>
               <div className="row">
-                <h1 className="card-title text-center text-muted">
-                  My Height
-                </h1>
+                <h1 className="card-title text-center text-muted">My Height</h1>
                 <div className="col">
                   <label
                     for="exampleFormControlInput3"
@@ -120,9 +134,7 @@ export default function Profile() {
                 </div>
               </div>
               <div className="col-sm">
-                <h1 className="card-title text-center text-muted">
-                  My Weight
-                </h1>
+                <h1 className="card-title text-center text-muted">My Weight</h1>
 
                 <label
                   for="exampleFormControlInput3"
@@ -137,9 +149,7 @@ export default function Profile() {
               </div>
               <div className="container mb-4">
                 <div className="row">
-                <h1 className="card-title text-center text-muted">
-                  gender
-                </h1>
+                  <h1 className="card-title text-center text-muted">gender</h1>
                 </div>
                 <div className="d-flex justify-content-center">
                   <div className="form-check m-2">
@@ -184,7 +194,8 @@ export default function Profile() {
 
               <select
                 className="form-select activity-level"
-                aria-label="Default select example" >
+                aria-label="Default select example"
+              >
                 <option selected>Activity Level</option>
                 <option value="1">Sedentary</option>
                 <option value="2">Light</option>
@@ -193,10 +204,7 @@ export default function Profile() {
               </select>
 
               <div className="d-flex justify-content-center m-4">
-                <button
-                  className="btn btn-orange"
-                  type="button"
-                >
+                <button className="btn btn-orange" type="button">
                   Calculate
                 </button>
                 <button className="btn btn-orange-outline" type="button">
@@ -208,7 +216,7 @@ export default function Profile() {
         </div>
       </div>
 
-      { /* Slider Meals Section */}
+      {/* Slider Meals Section */}
 
       <div className="col-6 favoriteCard">
         <div className="card">
