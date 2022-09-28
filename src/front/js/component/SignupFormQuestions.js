@@ -1,8 +1,35 @@
 import React from 'react';
 import "../../styles/SignUp.css";
+import { Context } from '../store/appContext';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function SignupFormQuestions(){
+    const {store, actions} = useContext(Context); //Const to call store data from Flux (Actions is not used yet)
+    const [datatwo, setdatatwo] = useState({
+        diet: "",
+        feet: "",
+        inches: "",
+        weight: "",
+        age: "",
+        activity: ""
+    })
+    function handle(e) {
+        const newDatatwo = { ...datatwo };
+        newDatatwo[e.target.id] = e.target.value;
+        setdatatwo(newDatatwo);
+        console.log(newDatatwo);
+      }
+      let navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form data", datatwo);
+    actions.addsignupDatatwo(datatwo);
+    navigate("/dashboard");}
+
+    console.log(datatwo)
     return (
+        <form onSubmit={handleSubmit}>
         <div className="heroWelcome" id='welcomePage'>
             <div className="row mainHero">
                 <div className="col-sm heroHeadline2">
@@ -18,8 +45,12 @@ export function SignupFormQuestions(){
                         <div className="dietcheckboxes">
                             <div className="form-check form-check-inline">
                         <input
+                            onClick={(e) => {
+                                setdatatwo({ ...datatwo, diet: "Vegan"});
+                              }}
                             className="form-check-input"
-                            type="checkbox"
+                            type="radio"
+                            name='dietname'
                             id="inlineCheckbox1"
                             value="option1"
                         ></input>
@@ -28,9 +59,13 @@ export function SignupFormQuestions(){
                         </label>
                         </div>
                         <div className="form-check form-check-inline">
-                        <input
+                        <input 
+                            onClick={(e) => {
+                                setdatatwo({ ...datatwo, diet: "Vegetarian"});
+                              }}
                             className="form-check-input"
-                            type="checkbox"
+                            type="radio"
+                            name='dietname'
                             id="inlineCheckbox2"
                             value="option2"
                         ></input>
@@ -40,8 +75,12 @@ export function SignupFormQuestions(){
                         </div>
                         <div className="form-check form-check-inline">
                         <input
+                        onClick={(e) => {
+                            setdatatwo({ ...datatwo, diet: "Gluten free"});
+                          }}
                             className="form-check-input"
-                            type="checkbox"
+                            type="radio"
+                            name='dietname'
                             id="inlineCheckbox2"
                             value="option2"
                         ></input>
@@ -51,8 +90,12 @@ export function SignupFormQuestions(){
                         </div>
                         <div className="form-check form-check-inline">
                         <input
+                        onClick={(e) => {
+                            setdatatwo({ ...datatwo, diet: "Keto"});
+                          }}
                             className="form-check-input"
-                            type="checkbox"
+                            type="radio"
+                            name='dietname'
                             id="inlineCheckbox2"
                             value="option2"
                         ></input>
@@ -63,8 +106,12 @@ export function SignupFormQuestions(){
                         <div className="2nddietcheckboxes">
                             <div className="form-check form-check-inline">
                                 <input
+                                onClick={(e) => {
+                                    setdatatwo({ ...datatwo, diet: "Paleo"});
+                                  }}
                                     className="form-check-input"
-                                    type="checkbox"
+                                    type="radio"
+                                    name='dietname'
                                     id="inlineCheckbox1"
                                     value="option1"
                                 ></input>
@@ -74,8 +121,12 @@ export function SignupFormQuestions(){
                             </div>
                             <div className="form-check form-check-inline">
                             <input
+                            onClick={(e) => {
+                                setdatatwo({ ...datatwo, diet: "Pescatarian"});
+                              }}
                                 className="form-check-input"
-                                type="checkbox"
+                                type="radio"
+                                name='dietname'
                                 id="inlineCheckbox2"
                                 value="option2"
                             ></input>
@@ -85,8 +136,12 @@ export function SignupFormQuestions(){
                             </div>
                             <div className="form-check form-check-inline">
                                 <input
+                                onClick={(e) => {
+                                    setdatatwo({ ...datatwo, diet: "No restriction"});
+                                  }}
                                     className="form-check-input"
-                                    type="checkbox"
+                                    type="radio"
+                                    name='dietname'
                                     id="inlineCheckbox2"
                                     value="option2"
                                 ></input>
@@ -102,16 +157,27 @@ export function SignupFormQuestions(){
                             </p>
                         </div>
                         <div className="BMIheight">
-                            <input className="feet" placeholder="Feet"></input>
-                            <input className="inch" placeholder="Inches"></input>
-                            <input className="weightBtn" placeholder="Weight"></input>
-                            <input className="age" placeholder="Age"></input>
+                            <input
+                            onChange={(e) => setdatatwo({ ...datatwo, feet:e.target.value })}
+                            className="feet" placeholder="Feet"></input>
+                            <input 
+                            onChange={(e) => setdatatwo({ ...datatwo, inches:e.target.value })}
+                            className="inch" placeholder="Inches"></input>
+                            <input 
+                            onChange={(e) => setdatatwo({ ...datatwo, weight:e.target.value })}
+                            className="weightBtn" placeholder="Weight"></input>
+                            <input 
+                            onChange={(e) => setdatatwo({ ...datatwo, age:e.target.value })}
+                            className="age" placeholder="Age"></input>
                         </div>
                         <div className="BMIinfo">
                             <p className="BMIactivity">How active are you?</p>
                             <div className="BMIactivitybtn">
                                 <div className="3btnweight">
                                     <button
+                                    onClick={(e) => {
+                                        setdatatwo({ ...datatwo, activity: "Light activity" });
+                                      }}
                                         className="btnactivity"
                                         value={"Light"}
                                         type="button"
@@ -120,6 +186,9 @@ export function SignupFormQuestions(){
                                         Light
                                     </button>
                                     <button
+                                        onClick={(e) => {
+                                            setdatatwo({ ...datatwo, activity: "Moderately active" });
+                                        }}
                                         className="btnactivity"
                                         type="button"
                                         id="activitybtn"
@@ -127,6 +196,9 @@ export function SignupFormQuestions(){
                                         Moderate
                                     </button>
                                     <button
+                                    onClick={(e) => {
+                                        setdatatwo({ ...datatwo, activity: "Active" });
+                                      }}
                                         className="btnactivity"
                                         type="button"
                                         id="activitybtn"
@@ -154,6 +226,7 @@ export function SignupFormQuestions(){
                 </div>
             </div>
         </div>
+        </form>
     );
 }
 

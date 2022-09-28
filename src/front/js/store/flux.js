@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       recipeVegetarian: [],
       favorites: [],
       usersignupstats: [],
+      usersignupstatstwo: [],
     },
     actions: {
       getPopularRecipes: async () => {
@@ -73,10 +74,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         let updatedList = store.favorites.filter((item, i) => index != i);
         setStore({ favorites: updatedList });
       },
-      addsignupData: async (userinfo) => {
-        await setStore({ usersignupstats: userinfo });
+      addsignupData: (userinfo) => {
+       setStore({ usersignupstats: userinfo });
         console.log(userinfo);
       },
+      addsignupDatatwo: (userinfo) => {
+        setStore({ usersignupstatstwo: userinfo });
+       },
     },
   };
 };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "/src/front/js/store/appContext.js";
+import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+// import axios from "./api/axios";
 import "../../styles/SignUp.css";
 import { Link } from "react-router-dom";
 
@@ -13,12 +14,8 @@ export function SignUpFormUser() {
     userName: "",
     passWord: "",
     gender: "",
-    loseWeight: "",
-    gainWeight: "",
-    maintainWeight: "",
-    male: "",
-    female: "",
-    other: "",
+    weightgoal: "",
+    sex: "",
   });
 
   useEffect(() => {
@@ -27,21 +24,21 @@ export function SignUpFormUser() {
 
   const { store, actions } = useContext(Context); //Const to call store data from Flux (Actions is not used yet)
 
-  function submitForm(e) {
-    e.preventDefault();
+  // function submitForm(e) {
+  //   e.preventDefault();
     // console.log("form data", data);
-    console.log("user submitted");
-    console.log("store data", store.usersignupstats);
+  //   console.log("user submitted");
+  //   console.log("store data", store.usersignupstats);
 
-    actions.addsignupData(data);
+  //   actions.addsignupData(data);
 
-    console.log("usersing", store.usersignupstats);
-    setStore: (data) =>
-      setState({
-        store: (store.usersignupstats, ["@13123", "#123123"]),
-        actions: { ...state.actions },
-      });
-  }
+  //   console.log("usersing", store.usersignupstats);
+  //   setStore: (data) =>
+  //     setState({
+  //       store: (store.usersignupstats, ["@13123", "#123123"]),
+  //       actions: { ...state.actions },
+  //     });
+  // }
 
   function handle(e) {
     const newData = { ...data };
@@ -49,8 +46,16 @@ export function SignUpFormUser() {
     setData(newData);
     console.log(newData);
   }
+  let navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form data", data);
+    actions.addsignupData(data);
+    navigate("/signupquestions");
+  }
   return (
-    <form onSubmit={(e) => submitForm(e)}>
+    // <form onSubmit={(e) => submitForm(e)}>
+    <form onSubmit={handleSubmit}>
       <div>
         <div>
           <div className="form-user">
@@ -112,7 +117,7 @@ export function SignUpFormUser() {
           <div class="3btnweight">
             <button
               onClick={(e) => {
-                setData({ ...data, loseWeight: "lose weight" });
+                setData({ ...data, weightgoal: "Lose weight" });
               }}
               value={"lose Weight"}
               class="btn btn-orange"
@@ -123,7 +128,7 @@ export function SignUpFormUser() {
             </button>
             <button
               onClick={(e) => {
-                setData({ ...data, gainWeight: "gain weight" });
+                setData({ ...data, weightgoal: "Gain weight" });
               }}
               class="btn btn-orange"
               type="button"
@@ -133,7 +138,7 @@ export function SignUpFormUser() {
             </button>
             <button
               onClick={(e) => {
-                setData({ ...data, maintainWeight: "Maintain Weight" });
+                setData({ ...data, weightgoal: "Maintain Weight" });
               }}
               class="btn btn-orange"
               type="button"
@@ -147,7 +152,7 @@ export function SignUpFormUser() {
             <div className="Genderdiv">
               <button
                 onClick={(e) => {
-                  setData({ ...data, male: "Male" });
+                  setData({ ...data, sex: "Male" });
                 }}
                 class="btn btn-orange"
                 type="button"
@@ -157,7 +162,7 @@ export function SignUpFormUser() {
               </button>
               <button
                 onClick={(e) => {
-                  setData({ ...data, female: "Female" });
+                  setData({ ...data, sex: "Female" });
                 }}
                 class="btn btn-orange"
                 type="button"
@@ -167,7 +172,7 @@ export function SignUpFormUser() {
               </button>
               <button
                 onClick={(e) => {
-                  setData({ ...data, other: "Other" });
+                  setData({ ...data, sex: "Other" });
                 }}
                 class="btn btn-orange"
                 type="button"

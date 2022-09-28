@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 
 import "../../styles/dashboard.css";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
 
-import { Context } from "/src/front/js/store/appContext.js";
 export default function Profile({
   firstName = "",
   LastName = "",
@@ -11,13 +11,16 @@ export default function Profile({
   UserName = "",
 }) {
   const { store, actions } = useContext(Context); //Const to call store data from Flux (Actions is not used yet)
-
+  const [userdata, setuserData] = useState({})
+  const [userdatatwo, setuserDatatwo] = useState({})
   useEffect(
     () => {
-      console.log(store.usersignupstats);
+      setuserData(store.usersignupstats);
+      setuserDatatwo(store.usersignupstatstwo)
     },
-    [] // In Here we call out again to keep stored the data on re-load the page
+    [store] // In Here we call out again to keep stored the data on re-load the page
   );
+	console.log(store.usersignupstats)
   return (
     <div className="container">
       <div className="container-flex">
@@ -29,8 +32,9 @@ export default function Profile({
               alt="..."
             />
             <div className="card-body">
-              <h1 className="card-text">BEYONCE</h1>
+              <h1 className="card-text">{userdata.firstName}</h1>
               <h4>Nutrition Goals</h4>
+              <p>{userdata.weightgoal}</p>
             </div>
           </div>
           <div className="col-sm">
@@ -40,13 +44,13 @@ export default function Profile({
                 for="exampleFormControlInput1"
                 className="form-label fullName"
               >
-                {(firstName, LastName)}
+                {userdata.firstname+" "+userdata.lastname}
               </label>
               <input
                 type="text"
                 className="form-control fullName"
                 id="exampleFormControlInput1"
-                placeholder="Full Name"
+                placeholder={userdata.firstName+" "+userdata.lastName}
               />
             </div>
             <div className="mb-3">
@@ -54,13 +58,12 @@ export default function Profile({
                 for="exampleFormControlInput2"
                 className="form-label usernameInput"
               >
-                {UserName}
               </label>
               <input
                 type="text"
                 className="form-control usernameInput"
                 id="exampleFormControlInput2"
-                placeholder="Username"
+                placeholder={userdata.userName}
               />
             </div>
             <div className="mb-3">
@@ -74,7 +77,7 @@ export default function Profile({
                 type="email"
                 className="form-control emailAddressInput"
                 id="exampleFormControlInput3"
-                placeholder="name@example.com"
+                placeholder={userdata.emailsignup}
               />
             </div>
           </div>
@@ -87,15 +90,14 @@ export default function Profile({
             <div className="card p personalDietCircle">
               <div className="card-body innerCircle">
                 <h1 className="card-title text-center dietCircleTitle">
-                  Vegetarian Diet
+                  {userdatatwo.diet} Diet
                 </h1>
                 <p className="card-text text-center">My Weight Gain Journey</p>
                 <div className="card-text-diet">
                   <ul className="list-group list-group-flush text-center">
-                    <li className="list-group-item">Age</li>
-                    <li className="list-group-item">Weight</li>
-                    <li className="list-group-item">Height</li>
-                    <li className="list-group-item">Goal Weight</li>
+                    <li className="list-group-item">{userdatatwo.age}</li>
+                    <li className="list-group-item">{userdatatwo.weight}</li>
+                    <li className="list-group-item">{userdatatwo.feet+"'"+userdatatwo.inches}</li>
                   </ul>
                 </div>
               </div>
@@ -117,7 +119,7 @@ export default function Profile({
                     type="text"
                     className="form-control feetInput"
                     id="exampleFormControlInput"
-                    placeholder="FEET"
+                    defaultValue={userdatatwo.feet}
                   />
                 </div>
                 <div className="col">
@@ -129,7 +131,7 @@ export default function Profile({
                     type="text"
                     className="form-control inchesInput"
                     id="exampleFormControlInput"
-                    placeholder="INCHES"
+                    defaultValue={userdatatwo.inches}
                   />
                 </div>
               </div>
@@ -144,7 +146,8 @@ export default function Profile({
                   type="text"
                   className="form-control ageInput"
                   id="exampleFormControlInput"
-                  placeholder="lbs."
+                  placeholder="lbs"
+                  defaultValue={userdatatwo.weight}
                 />
               </div>
               <div className="container mb-4">
@@ -159,7 +162,7 @@ export default function Profile({
                       name="gridRadios"
                       id="gridRadios1"
                       value="option1"
-                      checked
+                    checked= {userdata.sex=="Female"? true: false}
                     ></input>
                     <label className="form-check-label" for="gridRadios1">
                       Female
@@ -172,6 +175,7 @@ export default function Profile({
                       name="gridRadios"
                       id="gridRadios2"
                       value="option2"
+                      checked= {userdata.sex=="Male"? true: false}
                     ></input>
                     <label className="form-check-label" for="gridRadios2">
                       Male
@@ -184,6 +188,7 @@ export default function Profile({
                       name="gridRadios"
                       id="gridRadios3"
                       value="option3"
+                      checked= {userdata.sex=="Other"? true: false}
                     ></input>
                     <label className="form-check-label" for="gridRadios3">
                       Other
@@ -196,11 +201,15 @@ export default function Profile({
                 className="form-select activity-level"
                 aria-label="Default select example"
               >
-                <option selected>Activity Level</option>
-                <option value="1">Sedentary</option>
-                <option value="2">Light</option>
-                <option value="3">Moderate</option>
-                <option value="4">Active</option>
+                <option value="1"selected={
+                  userdata.sex=="Light"? true: false
+                }>Light</option>
+                <option value="2"selected={
+                  userdatatwo.activity=="Moderate"? true: false
+                }>Moderate</option>
+                <option value="3"selected={
+                  userdatatwo.activity=="Active"? true: false
+                }>Active</option>
               </select>
 
               <div className="d-flex justify-content-center m-4">
