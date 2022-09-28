@@ -1,6 +1,8 @@
 import React from "react";
 import "../../styles/dashboard.css";
 import "../../styles/home.css";
+import RecipeCollection from "/src/front/js/component/RecipeCollection.js";
+
 
 
 export default function Profile() {
@@ -151,7 +153,7 @@ export default function Profile() {
                       value="option1"
                       checked
                     ></input>
-                    <label className="form-check-label" for="gridRadios1">
+                    <label className="form-check-label gender" for="gridRadios1">
                       Female
                     </label>
                   </div>
@@ -163,7 +165,7 @@ export default function Profile() {
                       id="gridRadios2"
                       value="option2"
                     ></input>
-                    <label className="form-check-label" for="gridRadios2">
+                    <label className="form-check-label gender" for="gridRadios2">
                       Male
                     </label>
                   </div>
@@ -175,7 +177,7 @@ export default function Profile() {
                       id="gridRadios3"
                       value="option3"
                     ></input>
-                    <label className="form-check-label" for="gridRadios3">
+                    <label className="form-check-label gender" for="gridRadios3">
                       Other
                     </label>
                   </div>
@@ -208,9 +210,13 @@ export default function Profile() {
         </div>
       </div>
 
+      <div>
+        <RecipeCollection/>
+      </div>
+
       { /* Slider Meals Section */}
 
-      <div className="col favoriteCard">
+      <div className="col- favoriteCard">
         <div className="card">
           <div className="card-body d-flex justify-content-center align-items-center flex-column favoriteMeal">
             <h1 className="card-title text-center text-dark">
